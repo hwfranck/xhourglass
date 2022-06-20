@@ -2,8 +2,9 @@ cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
 set (XHOURGLASS_VERSION 0.0.1.0)
 set (XH_TRANSLATIONS_PATH resources/translations)
+set(PROJECT_NAME xhourglass)
 
-project(xhourglass LANGUAGES CXX)
+project(${PROJECT_NAME} LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -29,7 +30,7 @@ set( Srcs
 )
 
 set( QRCs
-	resources/xhourglass.qrc
+	resources/${PROJECT_NAME}.qrc
 )
 
 set(TS_FILES
@@ -47,14 +48,14 @@ set( WIN_RES
 	resources/win_res.rc
 )
 
-add_executable(xhourglass
+add_executable(${PROJECT_NAME}
 	${Srcs}
 	${QRC_Srcs}
 	${WIN_RES}
 )
 
-target_link_libraries(xhourglass PRIVATE Qt5::Widgets Qt5::Multimedia Qt5::WinExtras)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Multimedia Qt5::WinExtras)
 
-set_target_properties(xhourglass PROPERTIES
+set_target_properties(${PROJECT_NAME} PROPERTIES
 	WIN32_EXECUTABLE ON
 )
