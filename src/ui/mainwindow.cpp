@@ -12,7 +12,6 @@
 #include <QProgressBar>
 #include <QLineEdit>
 #include <QTimer>
-#include <QDebug>
 #include <QTime>
 #include <QPropertyAnimation>
 #include <QApplication>
@@ -392,7 +391,7 @@ void MainWindow::updateProgress(){
         case TimerState::TimerPaused :
             break;
 
-        default: qDebug() << "TIMER IN UNDEFINED STATE";
+        default:
             break;
     }
 }

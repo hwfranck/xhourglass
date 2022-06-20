@@ -20,6 +20,12 @@ find_package(Qt5 REQUIRED COMPONENTS
 	LinguistTools # qt5_add_translations
 )
 
+add_compile_definitions(
+	$<$<CONFIG:Release>:QT_NO_DEBUG_OUTPUT>
+	$<$<CONFIG:Release>:QT_NO_WARNING_OUTPUT>
+	$<$<CONFIG:Release>:QT_NO_INFO_OUTPUT>
+)
+
 set( Srcs
 	main.cpp
 	ui/mainwindow.cpp

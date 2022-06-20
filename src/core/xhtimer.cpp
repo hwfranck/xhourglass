@@ -1,8 +1,6 @@
 #include "xhtimer.h"
 #include "xh_utils.h"
 
-#include <QDebug>
-
 XHTimer::XHTimer(int secs, QObject *parent) :
     QTimer(parent),
     duration(secs),
