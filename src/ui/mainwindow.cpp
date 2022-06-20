@@ -38,7 +38,7 @@ MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(fal
     currentLanguage = QLocale::system().name();
 
     appTranslator.load(QString("xhourglass_lang_%1.qm").arg(currentLanguage), ":/translations");
-		
+
     qApp->installTranslator(&appTranslator);
 
     const int winWidth(336);
@@ -446,7 +446,7 @@ void MainWindow::pauseClicked(){
 
     remTimer->pause();
     disconnect(remTimer, &XHTimer::TimerChanged, this, &MainWindow::updateProgress);
-  
+
 	pauseButton->hide();
     resumeButton->show();
 

@@ -12,14 +12,14 @@ set(CMAKE_PREFIX_PATH C:/Qt/Qt5.14.2/5.14.2/msvc2017_64)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 REQUIRED COMPONENTS 
-	Widgets 
+find_package(Qt5 REQUIRED COMPONENTS
+	Widgets
 	Multimedia # QSound
 	Winextras # QWinTaskbarProgress
 	LinguistTools # qt5_add_translations
 )
 
-set( Srcs 
+set( Srcs
 	main.cpp
 	ui/mainwindow.cpp
 	core/xhtimer.cpp
@@ -28,11 +28,11 @@ set( Srcs
 	core/parse.cpp
 )
 
-set( QRCs 
-	resources/xhourglass.qrc 
+set( QRCs
+	resources/xhourglass.qrc
 )
 
-set(TS_FILES 
+set(TS_FILES
 	${XH_TRANSLATIONS_PATH}/xhourglass_lang.ts # default = english
 	${XH_TRANSLATIONS_PATH}/xhourglass_lang_en_US.ts
 	${XH_TRANSLATIONS_PATH}/xhourglass_lang_fr_FR.ts
@@ -47,7 +47,7 @@ set( WIN_RES
 	resources/win_res.rc
 )
 
-add_executable(xhourglass 
+add_executable(xhourglass
 	${Srcs}
 	${QRC_Srcs}
 	${WIN_RES}
@@ -55,6 +55,6 @@ add_executable(xhourglass
 
 target_link_libraries(xhourglass PRIVATE Qt5::Widgets Qt5::Multimedia Qt5::WinExtras)
 
-set_target_properties(xhourglass PROPERTIES 
+set_target_properties(xhourglass PROPERTIES
 	WIN32_EXECUTABLE ON
 )

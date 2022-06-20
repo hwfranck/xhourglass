@@ -30,7 +30,7 @@ int XHDuration::getTotalSecs(){
 void XHDuration::formatTime(int durationInSeconds){
 
 	convertSecsToHMS(durationInSeconds, hours, minutes, seconds);
-	
+
     if(hours != 0){
         formatted = QString(tr("%1 hours %2 minutes %3 seconds"))
                     .arg(hours)
