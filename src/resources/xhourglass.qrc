@@ -6,5 +6,11 @@
         <file>translations/xhourglass_lang_fr_FR.qm</file>
 		<file>translations/xhourglass_lang.qm</file>
         <file>sound/BeepNormal.wav</file>
-    </qresource>
+	</qresource>
+	<qresource prefix="sup_formats">
+		<file alias="format_de_DE">help/help-format_de_DE.txt</file>
+		<file alias="format_en_US">help/help-format_en_US.txt</file>
+		<file alias="format_es_ES">help/help-format_es_ES.txt</file>
+		<file alias="format_fr_FR">help/help-format_fr_FR.txt</file>
+	</qresource>
 </RCC>

@@ -25,6 +25,7 @@
 #include <QWinTaskbarProgress>
 #include <QWinTaskbarButton>
 #include <QRegularExpression>
+#include <QTextStream>
 
 MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(false) {
 
@@ -246,32 +247,7 @@ void MainWindow::formatsClicked(){
     QMessageBox formatsBox(QMessageBox::NoIcon, "Supported Time formats", "CONTENT", QMessageBox::Ok, this);
 
     formatsBox.setTextFormat(Qt::RichText);
-    formatsBox.setText("<tr>"
-                       "	<td>16:45:15</td>"
-                       "	<td> --> </td>"
-                       "	<td> 16 hours 45 minutes 15 seconds </td>"
-                       "</tr>"
-                       "<tr>"
-                       "	<td>12:45</td>"
-                       "	<td> --> </td>"
-                       "	<td> 12 hours 45 minutes </td>"
-                       "</tr>"
-                       "<tr>"
-                       "	<td>5m8 = 5m8s</td>"
-                       "	<td> --> </td>"
-                       "	<td> 5 minutes 8 seconds </td>"
-                       "</tr>"
-                       "<tr>"
-                       "	<td>30s</td>"
-                       "	<td> --> </td>"
-                       "	<td> 30 seconds </td>"
-                       "</tr>"
-                       "<tr>"
-                       "	<td>5m = 5</td>"
-                       "	<td> --> </td>"
-                       "	<td> 5 minutes </td>"
-                       "</tr>"
-                   );
+	formatsBox.setText(readHelp());
     formatsBox.exec();
 }
 
@@ -639,4 +615,27 @@ void MainWindow::retranslateUi(QWidget*){
     aboutAction->setText(tr("About"));
     closeAction->setText(tr("&Close"));
     closeAction->setShortcut(QString(tr("Alt+F4")));
+}
+
+QString MainWindow::readHelp(){
+
+	QString nameHelpFile = QString(":sup_formats/format_%1").arg(currentLanguage);
+
+	return readFile(nameHelpFile);
+}
+
+QString MainWindow::readFile(const QString fname){
+
+	QString content;
+
+	QFile mFile(fname);
+	if(mFile.open(QIODevice::ReadOnly)){
+
+		QTextStream inStream(&mFile);
+		content = inStream.readAll();
+
+		mFile.close();
+	}
+
+	return content;
 }

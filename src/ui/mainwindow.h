@@ -61,6 +61,8 @@ class MainWindow : public QWidget{
         void retranslateUi(QWidget*);
         void saveSettings();
         void updateStyle();
+		QString readHelp();
+		QString readFile(const QString fname);
 
         QProgressBar *progressBar;
         QLineEdit *taskNameEdit;

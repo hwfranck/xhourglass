@@ -1,0 +1,25 @@
+<tr>
+	<td>16:45:15</td>
+	<td> --> </td>
+	<td> 16 Stunden 45 Minuten 15 Sekunden </td>
+</tr>
+<tr>
+	<td>12:45</td>
+	<td> --> </td>
+	<td> 12 Stunden 45 Minuten </td>
+</tr>
+<tr>
+	<td>5m8 = 5m8s</td>
+	<td> --> </td>
+	<td> 5 Minuten 8 Sekunden </td>
+</tr>
+<tr>
+	<td>30s</td>
+	<td> --> </td>
+	<td> 30 Sekunden </td>
+</tr>
+<tr>
+	<td>5m = 5</td>
+	<td> --> </td>
+	<td> 5 Minuten </td>
+</tr>
