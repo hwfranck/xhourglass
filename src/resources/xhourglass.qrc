@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/">
+        <file>translations/xhourglass_lang_de_DE.qm</file>
         <file>translations/xhourglass_lang_en_US.qm</file>
+        <file>translations/xhourglass_lang_es_ES.qm</file>
         <file>translations/xhourglass_lang_fr_FR.qm</file>
 		<file>translations/xhourglass_lang.qm</file>
         <file>sound/BeepNormal.wav</file>

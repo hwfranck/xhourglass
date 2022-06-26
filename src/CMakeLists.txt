@@ -41,7 +41,9 @@ set( QRCs
 
 set(TS_FILES
 	${XH_TRANSLATIONS_PATH}/xhourglass_lang.ts # default = english
+	${XH_TRANSLATIONS_PATH}/xhourglass_lang_de_DE.ts
 	${XH_TRANSLATIONS_PATH}/xhourglass_lang_en_US.ts
+	${XH_TRANSLATIONS_PATH}/xhourglass_lang_es_ES.ts
 	${XH_TRANSLATIONS_PATH}/xhourglass_lang_fr_FR.ts
 )
 

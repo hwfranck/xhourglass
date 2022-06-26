@@ -97,7 +97,7 @@ class MainWindow : public QWidget{
                 *germanAction,
                 *frenchAction,
                 *spanishAction,
-                *japaneseAction,
+                *japaneseAction, // TODO: add japanese translation
                 *soundAction,
                 *noSoundAction,
                 *beepAction,

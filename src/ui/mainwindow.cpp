@@ -156,6 +156,8 @@ void MainWindow::createActions(){
     languageAction = new QAction(this);
     englishAction = new QAction(this);
     frenchAction = new QAction(this);
+    germanAction = new QAction(this);
+    spanishAction = new QAction(this);
 
     englishAction->setCheckable(true);
     englishAction->setData("en_US");
@@ -163,17 +165,27 @@ void MainWindow::createActions(){
     frenchAction->setCheckable(true);
     frenchAction->setData("fr_FR");
 
+    germanAction->setCheckable(true);
+    germanAction->setData("de_DE");
+
+    spanishAction->setCheckable(true);
+    spanishAction->setData("es_ES");
+
     languageGroup = new QActionGroup(this);
     languageGroup->setExclusive(true);
     languageGroup->addAction(englishAction);
     languageGroup->addAction(frenchAction);
+    languageGroup->addAction(germanAction);
+    languageGroup->addAction(spanishAction);
 
     connect(languageGroup, SIGNAL(triggered(QAction*)), this, SLOT(languageChanged(QAction*)));
 
     languageMenu = new QMenu(this);
     languageMenu->addActions(QList<QAction*>()
                              << englishAction
+                             << spanishAction
                              << frenchAction
+							 << germanAction
 							);
     languageAction->setMenu(languageMenu);
 
@@ -613,7 +625,9 @@ void MainWindow::retranslateUi(QWidget*){
 
     languageAction->setText(tr("&Language"));
     englishAction->setText(tr("&English"));
+    spanishAction->setText(tr("&Español"));
     frenchAction->setText(tr("&Français"));
+    germanAction->setText(tr("&Deutsch"));
 
     noSoundAction->setText(tr("No Sound"));
     beepAction->setText(tr("Beep"));
