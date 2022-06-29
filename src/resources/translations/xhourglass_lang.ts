@@ -1,107 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="en_US">
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../ui/mainwindow.cpp" line="375"/>
+        <location filename="../../ui/mainwindow.cpp" line="247"/>
+        <source>Supported Time formats</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../ui/mainwindow.cpp" line="256"/>
+        <source>About xHourglass</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../ui/mainwindow.cpp" line="363"/>
         <source>Timer Expired</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../ui/mainwindow.cpp" line="374"/>
+        <source>%1 ago</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../ui/mainwindow.cpp" line="592"/>
+        <source>Click to enter the title</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../ui/mainwindow.cpp" line="593"/>
+        <source>Click to enter the duration</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../ui/mainwindow.cpp" line="595"/>
+        <source>Start</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../ui/mainwindow.cpp" line="596"/>
+        <source>Pause</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../ui/mainwindow.cpp" line="597"/>
+        <source>Resume</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../ui/mainwindow.cpp" line="598"/>
+        <source>Stop</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../ui/mainwindow.cpp" line="600"/>
+        <source>xHourglass</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../ui/mainwindow.cpp" line="602"/>
+        <source>&amp;Language</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../ui/mainwindow.cpp" line="603"/>
+        <source>&amp;English</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/mainwindow.cpp" line="604"/>
-        <source>Click to enter the title</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;Español</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/mainwindow.cpp" line="605"/>
-        <source>Click to enter the duration</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;Français</source>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../../ui/mainwindow.cpp" line="607"/>
-        <source>Start</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../ui/mainwindow.cpp" line="606"/>
+        <source>&amp;Deutsch</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/mainwindow.cpp" line="608"/>
-        <source>Pause</source>
-        <translation type="unfinished"></translation>
+        <source>No Sound</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/mainwindow.cpp" line="609"/>
-        <source>Resume</source>
-        <translation type="unfinished"></translation>
+        <source>Beep</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/mainwindow.cpp" line="610"/>
-        <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <source>Emits a beep when timer finishes</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/mainwindow.cpp" line="612"/>
-        <source>xHourglass</source>
-        <translation type="unfinished"></translation>
+        <source>Sound</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../ui/mainwindow.cpp" line="613"/>
+        <source>Help</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/mainwindow.cpp" line="614"/>
-        <source>&amp;Language</source>
-        <translation type="unfinished"></translation>
+        <source>Formats</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/mainwindow.cpp" line="615"/>
-        <source>&amp;English</source>
-        <translation type="unfinished"></translation>
+        <source>About</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/mainwindow.cpp" line="616"/>
-        <source>&amp;Français</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../ui/mainwindow.cpp" line="618"/>
-        <source>No Sound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../ui/mainwindow.cpp" line="619"/>
-        <source>Beep</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../ui/mainwindow.cpp" line="620"/>
-        <source>Emits a beep when timer finishes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../ui/mainwindow.cpp" line="622"/>
-        <source>Sound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../ui/mainwindow.cpp" line="623"/>
-        <source>Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../ui/mainwindow.cpp" line="624"/>
-        <source>Formats</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../ui/mainwindow.cpp" line="625"/>
-        <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../ui/mainwindow.cpp" line="626"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../../ui/mainwindow.cpp" line="627"/>
+        <location filename="../../ui/mainwindow.cpp" line="617"/>
         <source>Alt+F4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -109,17 +134,17 @@
     <message>
         <location filename="../../core/xhduration.cpp" line="35"/>
         <source>%1 hours %2 minutes %3 seconds</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../core/xhduration.cpp" line="40"/>
         <source>%1 minutes %2 seconds</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../core/xhduration.cpp" line="44"/>
         <source>%1 seconds</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 </TS>

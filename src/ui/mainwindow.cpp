@@ -244,7 +244,7 @@ void MainWindow::createActions(){
 
 void MainWindow::formatsClicked(){
 
-    QMessageBox formatsBox(QMessageBox::NoIcon, "Supported Time formats", "CONTENT", QMessageBox::Ok, this);
+    QMessageBox formatsBox(QMessageBox::NoIcon, tr("Supported Time formats"), "CONTENT", QMessageBox::Ok, this);
 
     formatsBox.setTextFormat(Qt::RichText);
 	formatsBox.setText(readHelp());
@@ -253,7 +253,7 @@ void MainWindow::formatsClicked(){
 
 void MainWindow::aboutClicked(){
 
-    QMessageBox aboutBox(QMessageBox::NoIcon, "About xHourglass", "CONTENT", QMessageBox::Ok, this);
+    QMessageBox aboutBox(QMessageBox::NoIcon, tr("About xHourglass"), "CONTENT", QMessageBox::Ok, this);
 
     aboutBox.setTextFormat(Qt::RichText);
     aboutBox.setText("This is a cross-platform reimplementation of 'Hourglass by Chris Dziemborowicz.'"
@@ -371,7 +371,7 @@ void MainWindow::updateProgress(){
 
         case TimerState::TimerExpired :
             {
-                QString elapsedText = QString("%1 ago").arg( remTimer->getElapsed().getFormatted() );
+                QString elapsedText = QString(tr("%1 ago")).arg( remTimer->getElapsed().getFormatted() );
 
                 elapsedLabel->setText( elapsedText );
                 break;
