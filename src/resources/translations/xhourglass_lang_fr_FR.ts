@@ -95,7 +95,7 @@
     </message>
     <message>
         <location filename="../../ui/mainwindow.cpp" line="626"/>
-        <source>&amp;Close</source>
+        <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>

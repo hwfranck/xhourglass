@@ -613,7 +613,7 @@ void MainWindow::retranslateUi(QWidget*){
     helpAction->setText(tr("Help"));
     formatsAction->setText(tr("Formats"));
     aboutAction->setText(tr("About"));
-    closeAction->setText(tr("&Close"));
+    closeAction->setText(tr("&Quit"));
     closeAction->setShortcut(QString(tr("Alt+F4")));
 }
 
