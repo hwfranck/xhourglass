@@ -10,12 +10,12 @@
     </message>
     <message>
         <location filename="../../ui/mainwindow.cpp" line="604"/>
-        <source>Click to enter title</source>
+        <source>Click to enter the title</source>
         <translation>Haga clic para introducir el título</translation>
     </message>
     <message>
         <location filename="../../ui/mainwindow.cpp" line="605"/>
-        <source>Click to enter time</source>
+        <source>Click to enter the duration</source>
         <translation>Haga clic para introducir la duración</translation>
     </message>
     <message>

@@ -589,8 +589,8 @@ void MainWindow::showEvent(QShowEvent *event){
 
 void MainWindow::retranslateUi(QWidget*){
 
-    taskNameEdit->setPlaceholderText(tr("Click to enter title"));
-    remainingEdit->setPlaceholderText(tr("Click to enter time"));
+    taskNameEdit->setPlaceholderText(tr("Click to enter the title"));
+    remainingEdit->setPlaceholderText(tr("Click to enter the duration"));
 
     startButton->setText(tr("Start"));
     pauseButton->setText(tr("Pause"));
