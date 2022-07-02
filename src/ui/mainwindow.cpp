@@ -190,18 +190,23 @@ void MainWindow::createActions(){
 							);
     languageAction->setMenu(languageMenu);
 
+	// Add a check mark to the current language in the menu
+	bool isSystemTranslationAvailable(false);
     QAction *a;
     QList<QAction*> l = languageGroup->actions();
 
-	// Add a check mark to the current language in the menu
     for(int i = 0; i < l.size(); i++){
         a = l.at(i);
         if(currentLanguage == a->data().toString()){
-            a->trigger();
-            break;
+            a->setChecked(true);
+            isSystemTranslationAvailable = true;
+			break;
         }
-		englishAction->trigger();
     }
+
+   if(!isSystemTranslationAvailable){
+		englishAction->trigger();
+   }
 
     noSoundAction = new QAction(this);
     beepAction = new QAction(this);
