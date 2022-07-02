@@ -47,6 +47,7 @@ class XHTimer : public QTimer{
         void updateTimer();
 
     private:
+		void resetTimer();
         int duration,
             counter;
 

@@ -26,7 +26,7 @@ TimerState XHTimer::getTimerState(){
 
 void XHTimer::pause(){
 
-    this->stop();
+    QTimer::stop();
     currentState = TimerState::TimerPaused;
 }
 
@@ -39,7 +39,7 @@ void XHTimer::resume(){
 void XHTimer::start(int msec){
 
     if(currentState == TimerState::TimerStopped){
-        //TODO : Reset counters ?
+        resetTimer();
     }
 
     QTimer::start(msec);
@@ -50,6 +50,8 @@ void XHTimer::stop(){
 
     QTimer::stop();
     currentState = TimerState::TimerStopped;
+
+	resetTimer();
 }
 
 void XHTimer::updateTimer(){
@@ -97,4 +99,11 @@ void XHTimer::setDuration(int d){
     convertSecsToHMS(d, h, m, s);
     remainingSeconds = std::chrono::seconds(d);
     duration = d;
+}
+
+void XHTimer::resetTimer(){
+
+	counter = 0;
+	remainingSeconds = std::chrono::seconds(duration);
+	elapsedSeconds = std::chrono::seconds(0);
 }

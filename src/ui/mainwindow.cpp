@@ -458,11 +458,14 @@ void MainWindow::resumeClicked(){
 
 void MainWindow::stopClicked(){
 
+	//	Bring the timer back into the correct state before proceeding
     if(remTimer->getTimerState() == TimerState::TimerExpired
         || remTimer->getTimerState() == TimerState::TimerJustExpired ){
 
         elapsedLabel->hide();
-    }
+    } else if (remTimer->getTimerState() == TimerState::TimerPaused){
+		resumeClicked();
+	}
 
     remTimer->stop();
 
