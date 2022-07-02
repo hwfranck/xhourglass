@@ -7,7 +7,7 @@ void convertSecsToHMS(const int totalSecs, int &h, int &m, int &s){
     s = (totalSecs % 60);
 }
 
-int convertToInt(std::string &str){
+int convertToInt(const std::string& str){
 
     int result = 0;
 

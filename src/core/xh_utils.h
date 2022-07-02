@@ -4,6 +4,6 @@
 #include <QString>
 
 void convertSecsToHMS(const int totalSecs, int &h, int &m, int &s);
-int convertToInt(std::string &str);
+int convertToInt(const std::string& str);
 
 #endif // XH_UTILS_H
