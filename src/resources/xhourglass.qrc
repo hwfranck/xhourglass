@@ -6,6 +6,8 @@
         <file>translations/xhourglass_lang_fr_FR.qm</file>
 		<file>translations/xhourglass_lang.qm</file>
         <file>sound/BeepNormal.wav</file>
+        <file>styles/style-light-base.qss</file>
+        <file>styles/style-light-expired.qss</file>
 	</qresource>
 	<qresource prefix="sup_formats">
 		<file alias="format_de_DE">help/help-format_de_DE.txt</file>

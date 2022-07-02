@@ -52,10 +52,12 @@ MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(fal
     progressBar->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
 
     taskNameEdit = new QLineEdit(this);
+	taskNameEdit->setObjectName("taskNameEdit");
     taskNameEdit->setAlignment(Qt::AlignCenter);
     taskNameEdit->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
 
     remainingEdit = new QLineEdit(this);
+	remainingEdit->setObjectName("remainingEdit");
     remainingEdit->setAlignment(Qt::AlignCenter);
     connect(remainingEdit, &QLineEdit::returnPressed, this, &MainWindow::startClicked);
     remainingEdit->setText("18m");
@@ -132,8 +134,6 @@ MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(fal
     mainLayout->addWidget(progressBar);
     mainLayout->setMargin(0);
 
-    styleWidgets();
-
     setLayout(mainLayout);
 
     remainingEdit->setFocus();
@@ -141,6 +141,8 @@ MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(fal
 
     remTimer = new XHTimer(1, this);
     connect(remTimer, &XHTimer::TimerChanged, this, &MainWindow::updateProgress);
+
+    styleWidgets();
 
     setMinimumSize(winWidth,winHeight);
 
@@ -357,7 +359,7 @@ void MainWindow::updateProgress(){
                 progressBar->update();
                 tBarProgress->setValue(newValue);
 
-                updateStyle();
+                styleWidgets();
 
                 pauseButton->hide();
                 stopButton->hide();
@@ -390,48 +392,7 @@ void MainWindow::updateProgress(){
 }
 
 void MainWindow::updateStyle(){
-
-    QString s;
-
-    if(remTimer->getTimerState() == TimerState::TimerJustExpired){
-        s = QString("QProgressBar::chunk {"
-                    "background-color: rgb(199, 80, 80);"
-                    "}"
-                    ""
-                    "QProgressBar {"
-                    "border: 0px solid rgb(255, 0, 0);"
-                    "background-color: rgb(238, 238, 238);"
-                    "}"
-                    "QPushButton {"
-                    "color: rgb(0, 102, 204);"
-                    "border-style: none;"
-                    "}"
-                    ""
-                    "QPushButton:hover {"
-                    "color: rgb(255, 0, 0);"
-                    "}"
-                  "");
-    }else {
-        s = QString("QProgressBar::chunk {"
-                    "background-color: rgb(54, 101, 179);"
-                    "}"
-                    ""
-                    "QProgressBar {"
-                    "border: 0px solid rgb(255, 0, 0);"
-                    "background-color: rgb(238, 238, 238);"
-                    "}"
-                    "QPushButton {"
-                    "color: rgb(0, 102, 204);"
-                    "border-style: none;"
-                    "}"
-                    ""
-                    "QPushButton:hover {"
-                    "color: rgb(255, 0, 0);"
-                    "}"
-                  "");
-    }
-
-    qApp->setStyleSheet(s);
+	//	TODO: add themes
 }
 
 void MainWindow::pauseClicked(){
@@ -506,63 +467,22 @@ void MainWindow::startClicked(){
     remTimer->setDuration(enteredDuration.getTotalSecs());
     remTimer->start();
 
-    updateStyle();
+    styleWidgets();
 }
 
 void MainWindow::styleWidgets(){
 
-    taskNameEdit->setStyleSheet("QLineEdit {"
-                                "color: #808081;"
-                                "border-style: none;"
-                                "font-size : 10px;"
-                                "}"
-                                ""
-                                "QLineEdit:hover{"
-                                "border: 1px solid #569de5;"
-                                "}"
-                                ""
-                                "QLineEdit:focus{"
-                                "border: 1px solid #569de5;"
-                                "}"
-                                "");
 
-    remainingEdit->setStyleSheet("QLineEdit {"
-                                 "color : black;"
-                                 "border-style: none;"
-                                 "font-size : 20px;"
-                                 "}"
-                                 ""
-                                 "QLineEdit:hover{"
-                                 "border: 1px solid #569de5;"
-                                 "}"
-                                 ""
-                                 "QLineEdit:focus{"
-                                 "border: 1px solid #569de5;"
-                                 "}"
-                                 "");
+	QString sheet = readFile(":/styles/style-light-base.qss");
 
-    backgroundLabel->setStyleSheet("*{"
-                                   "background-color : white;"
-                                   "}");
+	if (remTimer->getTimerState() == TimerState::TimerJustExpired
+		|| remTimer->getTimerState() == TimerState::TimerExpired) {
 
-    QString s("QProgressBar::chunk {"
-                "background-color: rgb(54, 101, 179);"
-                "}"
-                ""
-                "QProgressBar {"
-                "border: 0px solid rgb(255, 0, 0);"
-                "background-color: rgb(238, 238, 238);"
-                "}"
-                "QPushButton {"
-                "color: rgb(0, 102, 204);"
-                "border-style: none;"
-                "}"
-                ""
-                "QPushButton:hover {"
-                "color: rgb(255, 0, 0);"
-                "}"
-              "");
-    qApp->setStyleSheet(s);
+		QString expiredSheet = readFile(":/styles/style-light-expired.qss");
+		sheet.append(expiredSheet);
+	}
+
+	qApp->setStyleSheet(sheet);
 }
 
 void MainWindow::enterEvent(QEvent*){

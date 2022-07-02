@@ -1,0 +1,50 @@
+/*	BASE	*/
+
+/*	---	QLABEL	---	*/
+QLabel {
+	background-color : white;
+}
+
+/*	---	QProgressBar	---	*/
+QProgressBar {
+	border: 0px;
+	background-color: rgb(238, 238, 238);
+}
+
+QProgressBar::chunk {
+	background-color: rgb(54, 101, 179);
+}
+
+/*	---	QPUSHBUTTON	---	*/
+QPushButton {
+	color: rgb(0, 102, 204);
+	border-style: none;
+}
+
+QPushButton:hover {
+	color: rgb(255, 0, 0);
+}
+
+/*	---	QLINEEDITS	---	*/
+QLineEdit {
+	border-style: none;
+}
+
+QLineEdit:hover {
+	border: 1px solid rgb(86, 157, 229);
+}
+
+QLineEdit:focus{
+	border: 1px solid rgb(86, 157, 229);
+}
+
+/*	---	TASKNAME_EDIT	---	*/
+QLineEdit#taskNameEdit {
+	color: rgb(128, 128, 129);
+	font-size : 10px;
+}
+
+/*	---	REMAINING_EDIT	---	*/
+QLineEdit#remainingEdit {
+	font-size : 20px;
+}
