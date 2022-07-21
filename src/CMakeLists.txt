@@ -26,6 +26,10 @@ add_compile_definitions(
 	$<$<CONFIG:Release>:QT_NO_INFO_OUTPUT>
 )
 
+if(MSVC)
+	add_compile_options(/W4)
+endif()
+
 set( Srcs
 	main.cpp
 	ui/mainwindow.cpp
