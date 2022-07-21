@@ -8,6 +8,7 @@
         <file>sound/BeepNormal.wav</file>
         <file>styles/style-light-base.qss</file>
         <file>styles/style-light-expired.qss</file>
+		<file alias="xhourglass_icon">graphics/xh_icon_48x.png</file>
 	</qresource>
 	<qresource prefix="sup_formats">
 		<file alias="format_de_DE">help/help-format_de_DE.txt</file>

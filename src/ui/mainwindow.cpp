@@ -149,6 +149,8 @@ MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(fal
     createActions();
     createContextMenu();
     retranslateUi(this);
+	
+	setWindowIcon(QIcon(":/xhourglass_icon"));
 }
 
 void MainWindow::createActions(){
