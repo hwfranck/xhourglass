@@ -31,16 +31,18 @@ void XHDuration::formatTime(int durationInSeconds){
 
 	convertSecsToHMS(durationInSeconds, hours, minutes, seconds);
 
+	QString hoursString(tr("%n hour(s) ", "", hours)),
+		minutesString(tr("%n minute(s) ", "", minutes)),
+		secondsString(tr("%n second(s)", "", seconds));
+
     if(hours != 0){
-        formatted = QString(tr("%1 hours %2 minutes %3 seconds"))
-                    .arg(hours)
-                    .arg(minutes)
-                    .arg(seconds);
+        formatted = hoursString
+					.append(minutesString)
+					.append(secondsString);
     }else if(minutes != 0){
-        formatted = QString(tr("%1 minutes %2 seconds"))
-                    .arg(minutes)
-                    .arg(seconds);
+        formatted = minutesString
+					.append(secondsString);
     }else{
-        formatted = QString(tr("%1 seconds")).arg(seconds);
+        formatted = secondsString;
     }
 }
