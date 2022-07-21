@@ -458,9 +458,12 @@ void MainWindow::startClicked(){
     progressBar->setRange(0, enteredDuration.getTotalSecs());
     progressBar->setValue(0);
 
+	if(tBarProgress->isStopped() || tBarProgress->isPaused()){
+		tBarProgress->resume();
+	}
+
     tBarProgress->setRange(0, enteredDuration.getTotalSecs());
     tBarProgress->reset();
-    tBarProgress->setValue(0);
 
     startButton->hide();
     pauseButton->show();
