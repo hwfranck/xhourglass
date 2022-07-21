@@ -134,7 +134,7 @@
     <message>
         <location filename="../../core/xhduration.cpp" line="35"/>
         <source>%1 hours %2 minutes %3 seconds</source>
-        <translation>%1 horas %2 minutos %3 sekundos</translation>
+        <translation>%1 horas %2 minutos %3 segundos</translation>
     </message>
     <message>
         <location filename="../../core/xhduration.cpp" line="40"/>
