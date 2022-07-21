@@ -65,7 +65,7 @@ void XHTimer::updateTimer(){
         currentState = TimerState::TimerJustExpired;
     }
 
-    if(counter < duration){
+    if(counter <= duration){
         remainingSeconds--;
     }else{
         elapsedSeconds++;
