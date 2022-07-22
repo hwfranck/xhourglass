@@ -22,10 +22,13 @@
 #include <QSound>
 #include <QCloseEvent>
 #include <QMessageBox>
-#include <QWinTaskbarProgress>
-#include <QWinTaskbarButton>
 #include <QRegularExpression>
 #include <QTextStream>
+
+#ifdef Q_OS_WIN
+	#include <QWinTaskbarProgress>
+	#include <QWinTaskbarButton>
+#endif
 
 MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(false) {
 
@@ -33,7 +36,9 @@ MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(fal
 
     beepSound = new QSound(":/sound/BeepNormal.wav", this);
 
-    tBarButton = new QWinTaskbarButton(this);
+	#ifdef Q_OS_WIN
+		tBarButton = new QWinTaskbarButton(this);
+	#endif
 
     currentLanguage = QLocale::system().name();
 
@@ -149,7 +154,7 @@ MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(fal
     createActions();
     createContextMenu();
     retranslateUi(this);
-	
+
 	setWindowIcon(QIcon(":/xhourglass_icon"));
 }
 
@@ -347,7 +352,11 @@ void MainWindow::updateProgress(){
         case TimerState::TimerRunning :
             newValue = progressBar->value() + 1;
             progressBar->setValue(newValue);
-            tBarProgress->setValue(newValue);
+
+			#ifdef Q_OS_WIN
+				tBarProgress->setValue(newValue);
+			#endif
+
             progressBar->update();
 
             remainingEdit->setText( remTimer->getRemainingTime().getFormatted() );
@@ -359,7 +368,10 @@ void MainWindow::updateProgress(){
                 newValue = progressBar->value() + 1;
                 progressBar->setValue(newValue);
                 progressBar->update();
-                tBarProgress->setValue(newValue);
+
+				#ifdef Q_OS_WIN
+					tBarProgress->setValue(newValue);
+				#endif
 
                 styleWidgets();
 
@@ -371,7 +383,9 @@ void MainWindow::updateProgress(){
 
                 remainingEdit->setText(tr("Timer Expired"));
 
-                tBarProgress->stop();
+				#ifdef Q_OS_WIN
+					tBarProgress->stop();
+				#endif
 
                 if(beepAction->isChecked()){
                     beepSound->play();
@@ -405,7 +419,9 @@ void MainWindow::pauseClicked(){
 	pauseButton->hide();
     resumeButton->show();
 
-    tBarProgress->pause();
+	#ifdef Q_OS_WIN
+		tBarProgress->pause();
+	#endif
 }
 
 void MainWindow::resumeClicked(){
@@ -416,7 +432,9 @@ void MainWindow::resumeClicked(){
 	resumeButton->hide();
     pauseButton->show();
 
-    tBarProgress->resume();
+	#ifdef Q_OS_WIN
+		tBarProgress->resume();
+	#endif
 }
 
 void MainWindow::stopClicked(){
@@ -433,7 +451,10 @@ void MainWindow::stopClicked(){
     remTimer->stop();
 
     progressBar->setValue(0);
-    tBarProgress->setValue(0);
+
+	#ifdef Q_OS_WIN
+		tBarProgress->setValue(0);
+	#endif
 
     remainingEdit->setText(enteredText);
 
@@ -458,12 +479,14 @@ void MainWindow::startClicked(){
     progressBar->setRange(0, enteredDuration.getTotalSecs());
     progressBar->setValue(0);
 
-	if(tBarProgress->isStopped() || tBarProgress->isPaused()){
-		tBarProgress->resume();
-	}
+	#ifdef Q_OS_WIN
+		if(tBarProgress->isStopped() || tBarProgress->isPaused()){
+			tBarProgress->resume();
+		}
 
-    tBarProgress->setRange(0, enteredDuration.getTotalSecs());
-    tBarProgress->reset();
+		tBarProgress->setRange(0, enteredDuration.getTotalSecs());
+		tBarProgress->reset();
+	#endif
 
     startButton->hide();
     pauseButton->show();
@@ -510,12 +533,14 @@ void MainWindow::leaveEvent(QEvent*){
 }
 
 void MainWindow::showEvent(QShowEvent *event){
-    tBarButton->setWindow(this->windowHandle());
+    #ifdef Q_OS_WIN
+		tBarButton->setWindow(this->windowHandle());
 
-    tBarProgress = tBarButton->progress();
-    tBarProgress->setVisible(true);
-    tBarProgress->setRange(0,10);
-    tBarProgress->setValue(0);
+		tBarProgress = tBarButton->progress();
+		tBarProgress->setVisible(true);
+		tBarProgress->setRange(0,10);
+		tBarProgress->setValue(0);
+	#endif
 
     event->accept();
 }

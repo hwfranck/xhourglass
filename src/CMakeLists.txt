@@ -8,15 +8,25 @@ project(${PROJECT_NAME} LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_PREFIX_PATH C:/Qt/Qt5.14.2/5.14.2/msvc2017_64)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+set(ADDITIONAL_SRCS_TARGET)
+set(TARGET_LIBS)
+set(ADDITIONAL_QT_PKGS)
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    set(CMAKE_PREFIX_PATH C:/Qt/Qt5.14.2/5.14.2/msvc2017_64)
+
+	string(APPEND ADDITIONAL_QT_PKGS "Winextras") # QWinTaskbarProgress
+	list(APPEND TARGET_LIBS Qt5::WinExtras)
+endif()
+
 find_package(Qt5 REQUIRED COMPONENTS
 	Widgets
 	Multimedia # QSound
-	Winextras # QWinTaskbarProgress
+	${ADDITIONAL_QT_PKGS}
 	LinguistTools # qt5_add_translations
 )
 
@@ -26,8 +36,12 @@ add_compile_definitions(
 	$<$<CONFIG:Release>:QT_NO_INFO_OUTPUT>
 )
 
-if(MSVC)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 	add_compile_options(/W4)
+endif()
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+	add_compile_options(-Wall -Wextra)
 endif()
 
 set( Srcs
@@ -60,13 +74,22 @@ set( WIN_RES
 	resources/win_res.rc
 )
 
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+	string(APPEND ADDITIONAL_SRCS_TARGET "${WIN_RES}")
+endif()
+
 add_executable(${PROJECT_NAME}
 	${Srcs}
 	${QRC_Srcs}
-	${WIN_RES}
+	${ADDITIONAL_SRCS_TARGET}
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Multimedia Qt5::WinExtras)
+list(APPEND TARGET_LIBS
+	Qt5::Widgets
+	Qt5::Multimedia
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE ${TARGET_LIBS})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
 	WIN32_EXECUTABLE ON
