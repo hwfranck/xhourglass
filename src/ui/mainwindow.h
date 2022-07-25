@@ -10,6 +10,7 @@
 #include <QWidget>
 #include <QTranslator>
 #include <QLineEdit>
+#include <QSettings>
 
 class QTimer;
 class QTime;
@@ -57,6 +58,7 @@ class MainWindow : public QWidget{
         void createActions();
         void createContextMenu();
         void loadLanguage(const QString& newLanguage);
+		void loadSettings();
         void switchTranslator(QTranslator&, const QString&newLang);
         void retranslateUi(QWidget*);
         void saveSettings();
@@ -87,7 +89,8 @@ class MainWindow : public QWidget{
         bool timerExpired,
             timerStarted,
             timerPaused,
-            hovering;
+            hovering,
+			beepStatus;
 
         QMenu *soundMenu,
                 *languageMenu,
@@ -124,6 +127,8 @@ class MainWindow : public QWidget{
 
         QWinTaskbarProgress *tBarProgress;
         QWinTaskbarButton *tBarButton;
+
+		QSettings appSettings;
 };
 
 #endif // MAINWINDOW_H

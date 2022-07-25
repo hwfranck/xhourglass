@@ -30,7 +30,9 @@
 	#include <QWinTaskbarButton>
 #endif
 
-MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(false) {
+MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(false), beepStatus(false) {
+
+	loadSettings();
 
     enteredText = "";
 
@@ -39,8 +41,6 @@ MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(fal
 	#ifdef Q_OS_WIN
 		tBarButton = new QWinTaskbarButton(this);
 	#endif
-
-    currentLanguage = QLocale::system().name();
 
     appTranslator.load(QString("xhourglass_lang_%1.qm").arg(currentLanguage), ":/translations");
 
@@ -220,8 +220,9 @@ void MainWindow::createActions(){
     noSoundAction = new QAction(this);
     beepAction = new QAction(this);
     noSoundAction->setCheckable(true);
+	noSoundAction->setChecked(!beepStatus);
     beepAction->setCheckable(true);
-    beepAction->setChecked(true);
+    beepAction->setChecked(beepStatus);
 
     soundGroup = new QActionGroup(this);
     soundGroup->setExclusive(true);
@@ -300,7 +301,17 @@ void MainWindow::closeClicked(){
 }
 
 void MainWindow::saveSettings(){
-//  TODO : Implement saveSettings()
+	appSettings.setValue("beep", beepAction->isChecked());
+	appSettings.setValue("language", currentLanguage);
+}
+
+void MainWindow::loadSettings(){
+	beepStatus = appSettings.value("beep", false).toBool();
+	currentLanguage = appSettings.value("language", "").toString();
+
+	if(currentLanguage.isEmpty()){
+		currentLanguage = QLocale::system().name();
+	}
 }
 
 void MainWindow::createContextMenu(){
