@@ -17,3 +17,14 @@ int convertToInt(const std::string& str){
 
     return result;
 }
+
+QMargins createMargins(int val){
+
+	QMargins margins;
+	margins.setRight(val);
+	margins.setTop(val);
+	margins.setLeft(val);
+	margins.setBottom(val);
+
+	return margins;
+}

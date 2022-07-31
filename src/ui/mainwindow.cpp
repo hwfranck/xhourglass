@@ -23,6 +23,7 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QRegularExpression>
+#include <QStyle>
 #include <QTextStream>
 
 #ifdef Q_OS_WIN
@@ -46,48 +47,28 @@ MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(fal
 
     qApp->installTranslator(&appTranslator);
 
-    const int winWidth(336);
-    const int winHeight(112);
-
     progressBar = new QProgressBar(this);
     progressBar->setRange(0,60);
     progressBar->setValue(0);
-    progressBar->setMinimumHeight(winHeight);
+    progressBar->setMinimumHeight(minWindowHeight);
     progressBar->setTextVisible(false);
     progressBar->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
 
-    taskNameEdit = new QLineEdit(this);
+    taskNameEdit = new QLineEdit;
 	taskNameEdit->setObjectName("taskNameEdit");
     taskNameEdit->setAlignment(Qt::AlignCenter);
-    taskNameEdit->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
+	taskNameEdit->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
 
-    remainingEdit = new QLineEdit(this);
+    remainingEdit = new QLineEdit;
+	remainingEdit->setText("18m");
 	remainingEdit->setObjectName("remainingEdit");
     remainingEdit->setAlignment(Qt::AlignCenter);
     connect(remainingEdit, &QLineEdit::returnPressed, this, &MainWindow::startClicked);
-    remainingEdit->setText("18m");
-    remainingEdit->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
+	remainingEdit->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
 
-    bgLayout = new QGridLayout;
-    bgLayout->addWidget(taskNameEdit, 1, 1);
-    bgLayout->addWidget(remainingEdit, 2, 1);
-
-    bgLayout->setColumnMinimumWidth(0,2);
-    bgLayout->setColumnMinimumWidth(2,2);
-
-    bgLayout->setRowMinimumHeight(0,2);
-    bgLayout->setRowMinimumHeight(4,2);
-
-    bgLayout->setColumnStretch(0,1);
-    bgLayout->setColumnStretch(1,24);
-    bgLayout->setColumnStretch(2,1);
-
-    bgLayout->setRowStretch(0,0);
-    bgLayout->setRowStretch(1,1);   //  taskname
-    bgLayout->setRowStretch(2,2);   //  remaining
-    bgLayout->setRowStretch(3,1);   //  buttons
-    bgLayout->setRowStretch(4,0);   //
-
+	horizontalLayout = new QHBoxLayout;
+	buttonsLayout = new QHBoxLayout;
+	verticalLayout = new QVBoxLayout;
 
     startButton = new QPushButton;
     pauseButton = new QPushButton;
@@ -104,36 +85,52 @@ MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(fal
     connect(resumeButton, &QPushButton::pressed, this, &MainWindow::resumeClicked);
     connect(stopButton, &QPushButton::pressed, this, &MainWindow::stopClicked);
 
+	buttonsList.append(startButton);
+	buttonsList.append(pauseButton);
+	buttonsList.append(resumeButton);
+	buttonsList.append(stopButton);
+
     elapsedLabel = new QLabel;
-
-    buttonsLayout = new QGridLayout;
-
-    buttonsLayout->addWidget(elapsedLabel, 0, 2, Qt::AlignCenter);
-    buttonsLayout->addWidget(startButton,0,2,Qt::AlignCenter);
-    buttonsLayout->addWidget(pauseButton,0,1,Qt::AlignRight);
-    buttonsLayout->addWidget(resumeButton,0,1,Qt::AlignRight);
-    buttonsLayout->addWidget(stopButton,0,3, Qt::AlignLeft);
-    buttonsLayout->setColumnMinimumWidth(0,10);
-    buttonsLayout->setColumnMinimumWidth(2,10);
-    buttonsLayout->setColumnMinimumWidth(4,10);
-    buttonsLayout->setColumnStretch(0,1);
-    buttonsLayout->setColumnStretch(4,1);
-    bgLayout->addLayout(buttonsLayout, 3, 1);
+	elapsedLabel->setAlignment(Qt::AlignCenter);
 
     elapsedLabel->hide();
     pauseButton->hide();
     resumeButton->hide();
     stopButton->hide();
 
+	buttonsLayout->setSpacing(defaultButtonsSpacing);
+
+	buttonsLayout->addWidget(elapsedLabel);
+	buttonsLayout->addWidget(startButton);
+	buttonsLayout->addWidget(pauseButton);
+	buttonsLayout->addWidget(resumeButton);
+	buttonsLayout->addWidget(stopButton);
+
+	buttonsLayout->insertStretch( 0, 1);
+	buttonsLayout->insertStretch(-1, 1);
+
+	verticalLayout->addWidget(taskNameEdit);
+	verticalLayout->addWidget(remainingEdit);
+	verticalLayout->addLayout(buttonsLayout);
+
+	verticalLayout->insertStretch(0, 1);
+	verticalLayout->insertStretch(-1, 1);
+
+	horizontalLayout->addLayout(verticalLayout);
+
+	horizontalLayout->insertSpacing(0, 1);
+	horizontalLayout->insertSpacing(-1, 1);
+
     backgroundLabel = new QLabel;
+    backgroundLabel->setLayout(horizontalLayout);
 
-    backgroundLabel->setLayout(bgLayout);
+	connect(remainingEdit, &QLineEdit::textChanged, this, &MainWindow::scaleLineEdits);
 
-    tLayout = new QVBoxLayout;
-    tLayout->addWidget(backgroundLabel);
+    pbarLayout = new QVBoxLayout;
+    pbarLayout->addWidget(backgroundLabel);
+    pbarLayout->setContentsMargins(createMargins(defaultContentsMargins));
 
-    progressBar->setLayout(tLayout);
-    progressBar->setContentsMargins(2,2,2,2);
+    progressBar->setLayout(pbarLayout);
 
     mainLayout = new QVBoxLayout;
     mainLayout->addWidget(progressBar);
@@ -147,15 +144,14 @@ MainWindow::MainWindow() : timerStarted(false), timerPaused(false), hovering(fal
     remTimer = new XHTimer(1, this);
     connect(remTimer, &XHTimer::TimerChanged, this, &MainWindow::updateProgress);
 
-    styleWidgets();
-
-    setMinimumSize(winWidth,winHeight);
-
     createActions();
     createContextMenu();
     retranslateUi(this);
 
 	setWindowIcon(QIcon(":/xhourglass_icon"));
+
+	setMinimumSize(minWindowWidth, minWindowHeight);
+    resize(minWindowWidth, minWindowHeight);
 }
 
 void MainWindow::createActions(){
@@ -282,6 +278,7 @@ void MainWindow::changeEvent(QEvent *event){
 
     if(event && event->type() == QEvent::LanguageChange){
         retranslateUi(this);
+		resizeAppLayout();
     }
 
     QWidget::changeEvent(event);
@@ -511,7 +508,6 @@ void MainWindow::startClicked(){
 
 void MainWindow::styleWidgets(){
 
-
 	QString sheet = readFile(":/styles/style-light-base.qss");
 
 	if (remTimer->getTimerState() == TimerState::TimerJustExpired
@@ -522,6 +518,8 @@ void MainWindow::styleWidgets(){
 	}
 
 	qApp->setStyleSheet(sheet);
+
+	resizeAppLayout();
 }
 
 void MainWindow::enterEvent(QEvent*){
@@ -544,16 +542,122 @@ void MainWindow::leaveEvent(QEvent*){
 }
 
 void MainWindow::showEvent(QShowEvent *event){
-    #ifdef Q_OS_WIN
-		tBarButton->setWindow(this->windowHandle());
 
-		tBarProgress = tBarButton->progress();
-		tBarProgress->setVisible(true);
-		tBarProgress->setRange(0,10);
-		tBarProgress->setValue(0);
-	#endif
+	// Do not make adjustments when restoring a minimized window
+	if(event && !event->spontaneous()){
+		#ifdef Q_OS_WIN
+			tBarButton->setWindow(this->windowHandle());
+
+			tBarProgress = tBarButton->progress();
+			tBarProgress->setVisible(true);
+			tBarProgress->setRange(0,10);
+			tBarProgress->setValue(0);
+		#endif
+
+		styleWidgets();
+    }
 
     event->accept();
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event){
+
+	resizeAppLayout();
+
+	event->accept();
+}
+
+void MainWindow::resizeAppLayout(){
+
+	scaleLineEdits();
+
+	float scaleFactorW(1.0f), scaleFactorH(1.0f), scaleFactor(1.0f);
+
+	scaleFactorW = 1.0 * width() / minWindowWidth;
+	scaleFactorH = 1.0 * height() / minWindowHeight;
+	scaleFactor = std::min(scaleFactorW, scaleFactorH);
+
+	for (QList<QPushButton*>::iterator it = buttonsList.begin();
+		it != buttonsList.end();
+		++it) {
+
+		QFont font = (*it)->font();
+
+		font.setPointSizeF(defaultTaskNameSize * scaleFactor);
+		(*it)->setFont(font);
+	}
+
+	buttonsLayout->setSpacing( defaultButtonsSpacing * scaleFactor);
+
+	resizeElapsedLabel(scaleFactor);
+
+	pbarLayout->setContentsMargins(createMargins(defaultContentsMargins * scaleFactor));
+}
+
+void MainWindow::scaleLineEdits(){
+
+	resizeLineEdit(remainingEdit, defaultRemainingSize);
+	resizeLineEdit(taskNameEdit, defaultTaskNameSize);
+}
+
+void MainWindow::resizeLineEdit(QLineEdit* lineEdit, const float defaultSize){
+
+	int lineEditWidth = lineEdit->width();
+	float scaleFactorW(1.0f), scaleFactorH(1.0f), scaleFactor(1.0f);
+
+	scaleFactorW = 1.0 * width() / minWindowWidth;
+	scaleFactorH = 1.0 * height() / minWindowHeight;
+	scaleFactor = std::min(scaleFactorW, scaleFactorH);
+
+	float finalPointSize(defaultSize * scaleFactor);
+
+	QString textRef = lineEdit->text();
+
+	if (textRef.isEmpty()) {
+		textRef = lineEdit->placeholderText();
+	}
+
+	QFont font = lineEdit->font();
+
+	font.setPointSizeF(finalPointSize);
+	lineEdit->setFont(font);
+
+	QFontMetrics fmt = lineEdit->fontMetrics();
+	int boundingWidth = (fmt.boundingRect(textRef)).width();
+
+	while (boundingWidth >= lineEditWidth && finalPointSize > 0.5) {
+		finalPointSize -= 0.5;
+		font.setPointSizeF(finalPointSize);
+		lineEdit->setFont(font);
+		fmt = lineEdit->fontMetrics();
+		boundingWidth = (fmt.boundingRect(textRef)).width();
+	}
+
+	//	make sure the descender is shown
+	int boundingHeight = (fmt.boundingRect(textRef)).height();
+	lineEdit->setFixedHeight(boundingHeight);
+}
+
+void MainWindow::resizeElapsedLabel(float scaleFactor){
+
+	QString elapsedLabelText(elapsedLabel->text());
+	QFont fontLabel = elapsedLabel->font();
+	int refWidthLabel = remainingEdit->width();
+	float finalPointSize = defaultTaskNameSize * scaleFactor;
+
+	fontLabel.setPointSizeF(finalPointSize);
+	elapsedLabel->setFont(fontLabel);
+
+	QFontMetrics fmtLabel = elapsedLabel->fontMetrics();
+	int boundingWidth = (fmtLabel.boundingRect(elapsedLabelText)).width();
+
+	while (boundingWidth >= refWidthLabel) {
+		finalPointSize -= 0.5;
+		fontLabel.setPointSizeF(finalPointSize);
+		elapsedLabel->setFont(fontLabel);
+		fmtLabel = elapsedLabel->fontMetrics();
+		boundingWidth = (fmtLabel.boundingRect(elapsedLabelText)).width();
+	}
 }
 
 void MainWindow::retranslateUi(QWidget*){

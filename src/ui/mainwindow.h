@@ -23,6 +23,7 @@ class QVBoxLayout;
 class QHBoxLayout;
 class QAction;
 class QActionGroup;
+class QMargins;
 class QMenu;
 class QSound;
 class QWinTaskbarProgress;
@@ -39,6 +40,7 @@ class MainWindow : public QWidget{
         void updateProgress();
         void pauseClicked();
         void resumeClicked();
+		void scaleLineEdits();
         void stopClicked();
         void startClicked();
         void languageChanged(QAction*);
@@ -51,6 +53,7 @@ class MainWindow : public QWidget{
         void enterEvent(QEvent *event) override;
         void leaveEvent(QEvent *event) override;
         void changeEvent(QEvent *) override;
+		void resizeEvent(QResizeEvent *event) override;
         void showEvent(QShowEvent *event) override;
 
     private :
@@ -60,6 +63,9 @@ class MainWindow : public QWidget{
         void loadLanguage(const QString& newLanguage);
 		void loadSettings();
         void switchTranslator(QTranslator&, const QString&newLang);
+		void resizeAppLayout();
+		void resizeElapsedLabel(float scaleFactor);
+		void resizeLineEdit(QLineEdit*, const float defaultPointSize);
         void retranslateUi(QWidget*);
         void saveSettings();
         void updateStyle();
@@ -78,13 +84,14 @@ class MainWindow : public QWidget{
                     *pauseButton,
                     *resumeButton,
                     *stopButton;
-        QGridLayout *buttonsLayout,
-                    *bgLayout;
-        QVBoxLayout *vLayout,
-                    *mainLayout,
-                    *tLayout;
-        QHBoxLayout *hLayout;
+        QVBoxLayout *mainLayout,
+					*pbarLayout,
+					*verticalLayout;
+        QHBoxLayout *horizontalLayout,
+					*buttonsLayout;
         QLabel *elapsedLabel;
+
+		QList<QPushButton*> buttonsList;
 
         bool timerExpired,
             timerStarted,
@@ -129,6 +136,15 @@ class MainWindow : public QWidget{
         QWinTaskbarButton *tBarButton;
 
 		QSettings appSettings;
+
+		const float defaultRemainingSize = 20.0F,
+			defaultTaskNameSize = 10.0F;
+		const int defaultButtonsSpacing = 6,
+			defaultContentsMargins = 10,
+			mainMarginsLeftRight = 1;
+
+		const int minWindowWidth = 336,
+			minWindowHeight = 112;
 };
 
 #endif // MAINWINDOW_H
