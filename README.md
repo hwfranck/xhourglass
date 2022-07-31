@@ -4,4 +4,5 @@ xHourglass is a cross-platform reimplementation of [Hourglass](https://github.co
 
 # Screenshots
 
-![Timer running, showing menus and supported formats](screenshots/xh_running_win.png "xhourglass screenshots")
+![Timer running on Windows, showing menus and supported formats](screenshots/xh_running_win.png "xHourglass screenshots on Windows")
+![Timer running on Kubuntu, showing menus and supported formats](screenshots/xh_running_kub.png "xHourglass screenshots on Kubuntu")
