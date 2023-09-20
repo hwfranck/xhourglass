@@ -186,14 +186,15 @@ void MainWindow::createActions(){
 
     connect(languageGroup, SIGNAL(triggered(QAction*)), this, SLOT(languageChanged(QAction*)));
 
-    languageMenu = new QMenu(this);
-    languageMenu->addActions(QList<QAction*>()
-                             << englishAction
-                             << spanishAction
-                             << frenchAction
-							 << germanAction
-							);
-    languageAction->setMenu(languageMenu);
+	languageMenu = new QMenu(this);
+	languageMenu->addActions(
+		QList<QAction*>()
+			<< germanAction
+			<< englishAction
+			<< spanishAction
+			<< frenchAction
+	);
+	languageAction->setMenu(languageMenu);
 
 	// Add a check mark to the current language in the menu
 	bool isSystemTranslationAvailable(false);
