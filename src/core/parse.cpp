@@ -3,83 +3,68 @@
 #include "parse.h"
 #include "xh_utils.h"
 
+#include <QRegularExpression>
+
 void process(std::string &exp, int &h, int &m, int &s){
-        h = m = s = 0;
-        size_t hPos, mPos, sPos;
+	h = m = s = 0;
 
-        bool validExpression(true);
-        size_t indexIntruder = exp.find_first_not_of("0123456789ms:");
+	// Inspired by "TimeSpanTokenShortFormPattern" and "TimeSpanTokenLongFormPattern" from Chris Dziemborowicz
+	// https://github.com/dziemborowicz/hourglass/blob/21589c76c9d6e21bf4b523b90c9bd56b8889f36c/Hourglass/Properties/Resources.resx#L300-L412
+	const QStringList patterns = {
+		"^((?<hours>\\d+):)?(?<minutes>\\d+):(?<seconds>\\d+)$", // 45:36, 12:45:36
+		"^(?<minutes>\\d+)$", // 45 -> 45m
+		"^(?<minutes>\\d+)m(?<seconds>\\d+)$", // 45m36
+		"^(?<hours>\\d+)h(?<minutes>\\d+)?$", // 12h[45]
+		"^(?<hours>\\d+)h(?<minutes>\\d+)m(?<seconds>\\d+)$", // 12h45m36
+		"^((?<hours>\\d+)h)?((?<minutes>\\d+)m)?((?<seconds>\\d+)s)?$" // [12h][45m][36s]
+	};
 
-        if( indexIntruder != std::string::npos){
-            validExpression = false;
-            //	std::cout << "\n 1<" << exp[indexIntruder] << ">";
-            return;
-        }
+	QString durationText(exp.c_str());
 
-		// Parse colon-separated durations. Can only contain 1 or 2 colons.
-        if( exp.find(":") != std::string::npos ){
+	for (int i = 0; i < patterns.size(); ++i) {
 
-            int numberOfColons(0);
-            size_t i(0);
+		QString pattern(patterns.at(i));
+		QRegularExpression regex(pattern);
 
-			// Keep searching on the unexplored substring
-            i = exp.find(":");
-            while( i != std::string::npos){
-                numberOfColons++;
-                i = exp.find(":", i+1);
-            }
+		QRegularExpressionMatch match = regex.match(durationText);
 
-            if(numberOfColons == 1){
-                mPos = exp.find(":");
+		if (match.hasMatch()) {
 
-                h = convertToInt( exp );
-                m = convertToInt ( exp.substr(mPos+1) );
-            }else if(numberOfColons == 2){
-                hPos = exp.find(":");
-                mPos = exp.rfind(":");
+			if (!match.captured("hours").isNull()) {
+				h = match.captured("hours").toInt();
+			}
 
-                h = convertToInt( exp );
-                m = convertToInt( exp.substr(hPos+1, mPos-1) );
-                s = convertToInt( exp.substr(mPos+1));
-            }
+			if (!match.captured("minutes").isNull()) {
+				m = match.captured("minutes").toInt();
+			}
 
-            return;
-        }
+			if (!match.captured("seconds").isNull()) {
+				s = match.captured("seconds").toInt();
+			}
 
-        mPos = exp.find("m");
-        sPos = exp.find("s");
-
-        if( exp.find("m") != mPos || exp.find("s") != sPos ){
-            validExpression = false;
-        }
-
-        if(validExpression){
-
-            if(mPos != std::string::npos && sPos != std::string::npos ){
-                m = convertToInt( exp );
-                s = convertToInt( exp.substr(mPos+1, sPos-mPos-1) );
-            }else if(mPos != std::string::npos ){
-                m = std::stoi(exp);
-
-                s = convertToInt(exp.substr(mPos+1));
-            }else if(sPos != std::string::npos ){
-                s = convertToInt(exp);
-            }else{
-                m = convertToInt(exp);
-            }
-        }else{
-            //	std::cout << "\n!! 2<" << exp << "> !!";
-        }
+			break;
+		}
+	}
 }
 
 int processInput(std::string &input){
 
-    int secs(0), mins(0), hours(0), totalSecs(0);
+	int secs(0), mins(0), hours(0), totalSecs(0);
 
-    std::string durationText(input);
+	// remove whitespace
+	for (std::string::iterator it = input.begin(); it != input.end(); ++it) {
+		if (isspace(*it)) {
+			std::string::iterator nextIt = input.erase(it);
+			it = nextIt-1;
+		}
+	}
 
-    process(durationText, hours, mins, secs);
-    totalSecs = hours * 3600 + mins * 60 + secs;
+	if (input.empty()) {
+		return 0;
+	}
 
-    return totalSecs;
+	process(input, hours, mins, secs);
+	totalSecs = hours * 3600 + mins * 60 + secs;
+
+	return totalSecs;
 }
