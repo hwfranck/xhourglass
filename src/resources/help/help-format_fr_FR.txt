@@ -1,25 +1,43 @@
-<tr>
-	<td>16:45:15</td>
-	<td> --> </td>
-	<td> 16 heures 45 minutes 15 secondes </td>
-</tr>
-<tr>
-	<td>12:45</td>
-	<td> --> </td>
-	<td> 12 heures 45 minutes </td>
-</tr>
-<tr>
-	<td>5m8 = 5m8s</td>
-	<td> --> </td>
-	<td> 5 minutes 8 secondes </td>
-</tr>
-<tr>
-	<td>30s</td>
-	<td> --> </td>
-	<td> 30 secondes </td>
-</tr>
-<tr>
-	<td>5m = 5</td>
-	<td> --> </td>
-	<td> 5 minutes </td>
-</tr>
+<style>
+	em {
+		font-style : normal;
+		font-weight : bold;
+	}
+</style>
+
+Saisissez la durée sous forme de nombres séparés par les<br>
+lettres <em>h</em>, <em>m</em> ou <em>s</em> ou par les deux points (<em>:</em>). Ces separateurs<br>
+déterminent si chaque nombre est interprété comme<br>
+<em>h</em>eures, <em>m</em>inutes ou <em>s</em>econdes.<br>
+Quelques exemples sont répertoriés ci-dessous.<br>
+
+<table>
+	<tr>
+		<td>16:45:15</td>
+		<td rowspan="2">--></td>
+		<td rowspan="2">16 heures 45 minutes 15 secondes</td>
+	</tr>
+	<tr>
+		<td>16h45m15</td>
+	</tr>
+	<tr>
+		<td>45:15</td>
+		<td>--></td>
+		<td>45 minutes 15 secondes</td>
+	</tr>
+	<tr>
+		<td>16h45 = 16h45m</td>
+		<td>--></td>
+		<td>16 heures 45 minutes</td>
+	</tr>
+	<tr>
+		<td>16h36s</td>
+		<td>--></td>
+		<td>16 heures 36 secondes</td>
+	</tr>
+	<tr>
+		<td>45m = 45</td>
+		<td>--></td>
+		<td>45 minutes</td>
+	</tr>
+</table>

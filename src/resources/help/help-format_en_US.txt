@@ -1,25 +1,43 @@
-<tr>
-	<td>16:45:15</td>
-	<td> --> </td>
-	<td> 16 hours 45 minutes 15 seconds </td>
-</tr>
-<tr>
-	<td>12:45</td>
-	<td> --> </td>
-	<td> 12 hours 45 minutes </td>
-</tr>
-<tr>
-	<td>5m8 = 5m8s</td>
-	<td> --> </td>
-	<td> 5 minutes 8 seconds </td>
-</tr>
-<tr>
-	<td>30s</td>
-	<td> --> </td>
-	<td> 30 seconds </td>
-</tr>
-<tr>
-	<td>5m = 5</td>
-	<td> --> </td>
-	<td> 5 minutes </td>
-</tr>
+<style>
+	em {
+		font-style : normal;
+		font-weight : bold;
+	}
+</style>
+
+Enter the duration as numbers separated by the colon (<em>:</em>)<br>
+or any of the letters <em>h</em>, <em>m</em> or <em>s</em>. These separators help in<br>
+the interpretation of each number as <em>H</em>ours, <em>M</em>inutes<br>
+or <em>S</em>econds.<br>
+Some examples are listed below.<br>
+
+<table>
+	<tr>
+		<td>16:45:15</td>
+		<td rowspan="2">--></td>
+		<td rowspan="2">16 hours 45 minutes 15 seconds</td>
+	</tr>
+	<tr>
+		<td>16h45m15</td>
+	</tr>
+	<tr>
+		<td>45:15</td>
+		<td>--></td>
+		<td>45 minutes 15 seconds</td>
+	</tr>
+	<tr>
+		<td>16h45 = 16h45m</td>
+		<td>--></td>
+		<td>16 hours 45 minutes</td>
+	</tr>
+	<tr>
+		<td>16h36s</td>
+		<td>--></td>
+		<td>16 hours 36 seconds</td>
+	</tr>
+	<tr>
+		<td>45m = 45</td>
+		<td>--></td>
+		<td>45 minutes</td>
+	</tr>
+</table>

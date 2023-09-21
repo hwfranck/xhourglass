@@ -1,25 +1,42 @@
-<tr>
-	<td>16:45:15</td>
-	<td> --> </td>
-	<td> 16 horas 45 minutos 15 segundos </td>
-</tr>
-<tr>
-	<td>12:45</td>
-	<td> --> </td>
-	<td> 12 horas 45 minutos </td>
-</tr>
-<tr>
-	<td>5m8 = 5m8s</td>
-	<td> --> </td>
-	<td> 5 minutos 8 segundos </td>
-</tr>
-<tr>
-	<td>30s</td>
-	<td> --> </td>
-	<td> 30 segundos </td>
-</tr>
-<tr>
-	<td>5m = 5</td>
-	<td> --> </td>
-	<td> 5 minutos </td>
-</tr>
+<style>
+	em {
+		font-style : normal;
+		font-weight : bold;
+	}
+</style>
+
+Introduzca la duración como números separados por las letras<br>
+<em>h</em>, <em>m</em> o <em>s</em> o dos puntos (<em>:</em>). Las letras determinan si cada número<br>
+se interpreta como <em>H</em>oras, <em>M</em>inutos o <em>S</em>egundos.<br>
+Algunos ejemplos se enumeran a continuación.<br>
+
+<table>
+	<tr>
+		<td>16:45:15</td>
+		<td rowspan="2">--></td>
+		<td rowspan="2">16 Horas 45 Minutos 15 Segundos</td>
+	</tr>
+	<tr>
+		<td>16h45m15</td>
+	</tr>
+	<tr>
+		<td>45:15</td>
+		<td>--></td>
+		<td>45 Minutos 15 Segundos</td>
+	</tr>
+	<tr>
+		<td>16h45 = 16h45m</td>
+		<td>--></td>
+		<td>16 Horas 45 Minutos</td>
+	</tr>
+	<tr>
+		<td>16h36s</td>
+		<td>--></td>
+		<td>16 Horas 36 Segundos</td>
+	</tr>
+	<tr>
+		<td>45m = 45</td>
+		<td>--></td>
+		<td>45 Minutos</td>
+	</tr>
+</table>

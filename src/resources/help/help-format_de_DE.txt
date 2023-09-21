@@ -1,25 +1,43 @@
-<tr>
-	<td>16:45:15</td>
-	<td> --> </td>
-	<td> 16 Stunden 45 Minuten 15 Sekunden </td>
-</tr>
-<tr>
-	<td>12:45</td>
-	<td> --> </td>
-	<td> 12 Stunden 45 Minuten </td>
-</tr>
-<tr>
-	<td>5m8 = 5m8s</td>
-	<td> --> </td>
-	<td> 5 Minuten 8 Sekunden </td>
-</tr>
-<tr>
-	<td>30s</td>
-	<td> --> </td>
-	<td> 30 Sekunden </td>
-</tr>
-<tr>
-	<td>5m = 5</td>
-	<td> --> </td>
-	<td> 5 Minuten </td>
-</tr>
+<style>
+	em {
+		font-style : normal;
+		font-weight : bold;
+	}
+</style>
+
+Geben Sie die Dauer als durch die Buchstaben <em>h</em>, <em>m</em> oder <em>s</em> oder<br>
+den Doppelpunkt (<em>:</em>) getrennte Zahlen ein. Diese Trennzeichen<br>
+bestimmen, ob jede Zahl als Stunden (<em>h</em>), Minuten (<em>m</em>) oder<br>
+Sekunden (<em>s</em>) interpretiert wird.<br>
+Einige Beispiele sind unten aufgeführt.<br>
+
+<table>
+	<tr>
+		<td>16:45:15</td>
+		<td rowspan="2">--></td>
+		<td rowspan="2">16 Stunden 45 Minuten 15 Sekunden</td>
+	</tr>
+	<tr>
+		<td>16h45m15</td>
+	</tr>
+	<tr>
+		<td>45:15</td>
+		<td>--></td>
+		<td>45 Minuten 15 Sekunden</td>
+	</tr>
+	<tr>
+		<td>16h45 = 16h45m</td>
+		<td>--></td>
+		<td>16 Stunden 45 Minuten</td>
+	</tr>
+	<tr>
+		<td>16h36s</td>
+		<td>--></td>
+		<td>16 Stunden 36 Sekunden</td>
+	</tr>
+	<tr>
+		<td>45m = 45</td>
+		<td>--></td>
+		<td>45 Minuten</td>
+	</tr>
+</table>
