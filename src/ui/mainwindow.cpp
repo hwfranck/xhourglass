@@ -706,6 +706,8 @@ QString MainWindow::readFile(const QString fname){
 	if(mFile.open(QIODevice::ReadOnly)){
 
 		QTextStream inStream(&mFile);
+		// correctly decode special characters in translated help files on Windows
+		inStream.setCodec("utf-8");
 		content = inStream.readAll();
 
 		mFile.close();
