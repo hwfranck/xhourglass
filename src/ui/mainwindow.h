@@ -3,6 +3,7 @@
 
 #include "../core/xhduration.h"
 #include "../core/xhtimer.h"
+#include "xhtoasthandler.h"
 
 #include <string>
 
@@ -78,6 +79,8 @@ class MainWindow : public QWidget{
         QLabel *backgroundLabel;
 
         XHTimer *remTimer;
+
+		XHToastHandler notification;
 
         int lastEntry;
         QPushButton *startButton,

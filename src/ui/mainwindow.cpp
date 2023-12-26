@@ -399,6 +399,8 @@ void MainWindow::updateProgress(){
                 if(beepAction->isChecked()){
                     beepSound->play();
                 }
+
+				notification.show();
             break;
 
         case TimerState::TimerExpired :
@@ -576,7 +578,7 @@ void MainWindow::resizeAppLayout(){
 
 	scaleFactorW = 1.0 * width() / minWindowWidth;
 	scaleFactorH = 1.0 * height() / minWindowHeight;
-	scaleFactor = std::min(scaleFactorW, scaleFactorH);
+	scaleFactor = std::min<float>(scaleFactorW, scaleFactorH);
 
 	for (QList<QPushButton*>::iterator it = buttonsList.begin();
 		it != buttonsList.end();
@@ -608,7 +610,7 @@ void MainWindow::resizeLineEdit(QLineEdit* lineEdit, const float defaultSize){
 
 	scaleFactorW = 1.0 * width() / minWindowWidth;
 	scaleFactorH = 1.0 * height() / minWindowHeight;
-	scaleFactor = std::min(scaleFactorW, scaleFactorH);
+	scaleFactor = std::min<float>(scaleFactorW, scaleFactorH);
 
 	float finalPointSize(defaultSize * scaleFactor);
 

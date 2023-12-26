@@ -21,6 +21,9 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 
 	string(APPEND ADDITIONAL_QT_PKGS "Winextras") # QWinTaskbarProgress
 	list(APPEND TARGET_LIBS Qt5::WinExtras)
+
+	add_library(WinToast STATIC third-party/wintoast/wintoastlib.cpp)
+	list(APPEND TARGET_LIBS WinToast)
 endif()
 
 find_package(Qt5 REQUIRED COMPONENTS
