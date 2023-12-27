@@ -87,6 +87,10 @@ add_executable(${PROJECT_NAME}
 	${ADDITIONAL_SRCS_TARGET}
 )
 
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+	COMMAND "${CMAKE_COMMAND}" -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/resources/graphics/xh_icon_48x.png ${CMAKE_CURRENT_BINARY_DIR}/xhourglass.png
+)
+
 list(APPEND TARGET_LIBS
 	Qt5::Widgets
 	Qt5::Multimedia

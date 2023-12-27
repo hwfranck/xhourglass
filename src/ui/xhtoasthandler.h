@@ -3,6 +3,8 @@
 
 #ifdef Q_OS_WIN
 	#include "xhtoasthandler_win.h"
+#elif defined Q_OS_LINUX
+	#include "xhtoasthandler_linux.h"
 #else
 	// placeholder to prevent crashes on unsupported platforms
 	class XHToastHandler {

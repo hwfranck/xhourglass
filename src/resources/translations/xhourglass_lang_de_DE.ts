@@ -159,11 +159,13 @@
 <context>
     <name>XHToastHandler</name>
     <message>
+        <location filename="../../ui/xhtoasthandler_linux.h" line="22"/>
         <location filename="../../ui/xhtoasthandler_win.h" line="44"/>
         <source>Timer Expired</source>
         <translation>Timer abgelaufen</translation>
     </message>
     <message>
+        <location filename="../../ui/xhtoasthandler_linux.h" line="23"/>
         <location filename="../../ui/xhtoasthandler_win.h" line="45"/>
         <source>Hello, your timer has just expired.</source>
         <translation>Hallo, Ihr Timer ist gerade abgelaufen.</translation>
